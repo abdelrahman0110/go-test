@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.appName }}
+    layer: {{ .Values.layer }}
+  name: {{ .Values.appName }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+      layer: {{ .Values.layer }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+        layer: {{ .Values.layer }}
+    spec:
+      containers:
+      - image: "{{ .Values.imageName }}:{{ .Values.imageVersion }}"
+        name: {{ .Values.appName }}
+        ports:
+          - containerPort: {{ .Values.port  }}
+        readinessProbe:
+          periodSeconds: 5
+          tcpSocket:
+            port: {{ .Values.port  }}
+        livenessProbe:
+          periodSeconds: 5
+          tcpSocket:
+            port: {{ .Values.port  }}
+

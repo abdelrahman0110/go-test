@@ -1,0 +1,9 @@
+appName: go-lang
+layer: test
+replicaCount: 1
+imageName:  abdelrhman0110/go-test
+imageVersion: latest
+svcName: go-service
+port: 8080
+nodePort: 30007
+svcType: NodePort
